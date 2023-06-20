@@ -1,52 +1,23 @@
-# steps:
-#   - name: 'gcr.io/cloud-builders/composer'
-#     args: ['install', '--no-dev']
-
-#   - name: 'gcr.io/cloud-builders/php'
-#     args: ['artisan', 'key:generate', '--force']
-
-#   - name: 'gcr.io/cloud-builders/gcloud'
-#     args: ['app', 'deploy']
-
-#   - name: 'gcr.io/cloud-builders/gcloud'
-#     entrypoint: 'bash'
-#     args:
-#       - '-c'
-#       - 'gcloud app create --region=us-central1 --quiet'
-
-#   - name: 'gcr.io/cloud-builders/gcloud'
-#     entrypoint: 'bash'
-#     args:
-#       - '-c'
-#       - 'gcloud app browse'
-
-# timeout: '2400s'  # Adjust the timeout as per your requirements
-
 steps:
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', '--depth=1', 'https://github.com/RyshuCdy/Todo_app.git', 'app']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['composer', 'install', '--no-dev']
-  - name: 'gcr.io/google-appengine/php'
+  - name: 'gcr.io/cloud-builders/composer'
+    args: ['install', '--no-dev']
+
+  - name: 'gcr.io/cloud-builders/php'
     args: ['artisan', 'key:generate', '--force']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'config:cache']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'migrate', '--force']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'optimize']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'route:cache']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'view:cache']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'config:clear']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'event:cache']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'optimize', '--force']
-  - name: 'gcr.io/google-appengine/php'
-    args: ['artisan', 'storage:link']
+
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy']
-timeout: '1600s'
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'gcloud app create --region=us-central1 --quiet'
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'gcloud app browse'
+
+timeout: '2400s'  # Adjust the timeout as per your requirements
