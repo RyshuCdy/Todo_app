@@ -20,4 +20,4 @@ steps:
       - '-c'
       - 'gcloud app browse'
 
-timeout: '1600s'  # Adjust the timeout as per your requirements
+timeout: '2400s'  # Adjust the timeout as per your requirements
