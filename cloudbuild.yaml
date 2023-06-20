@@ -1,0 +1,23 @@
+steps:
+  - name: 'gcr.io/cloud-builders/composer'
+    args: ['install', '--no-dev']
+
+  - name: 'gcr.io/cloud-builders/php'
+    args: ['artisan', 'key:generate', '--force']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'gcloud app create --region=us-central1 --quiet'
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'gcloud app browse'
+
+timeout: '1600s'  # Adjust the timeout as per your requirements
